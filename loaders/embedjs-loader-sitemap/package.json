@@ -1,10 +1,10 @@
 {
     "name": "@cherrystudio/embedjs-loader-sitemap",
-    "version": "0.1.28",
+    "version": "0.1.29",
     "description": "Sitemap recursive loader for embedjs",
     "dependencies": {
-        "@cherrystudio/embedjs-interfaces": "0.1.28",
-        "@cherrystudio/embedjs-loader-web": "0.1.28",
+        "@cherrystudio/embedjs-interfaces": "0.1.29",
+        "@cherrystudio/embedjs-loader-web": "0.1.29",
         "debug": "^4.4.0",
         "md5": "^2.3.0",
         "sitemapper": "^3.2.20"
