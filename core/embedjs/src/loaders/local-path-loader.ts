@@ -11,8 +11,8 @@ export class LocalPathLoader extends BaseLoader<{ type: 'LocalPathLoader' }> {
     private readonly debug = createDebugMessages('embedjs:loader:LocalPathLoader');
     private readonly path: string;
 
-    constructor({ path }: { path: string }) {
-        super(`LocalPathLoader_${md5(path)}`, { path });
+    constructor({ path, chunkSize, chunkOverlap }: { path: string, chunkSize?: number, chunkOverlap?: number }) {
+        super(`LocalPathLoader_${md5(path)}`, { path }, chunkSize ?? 1000, chunkOverlap ?? 0);
         this.path = path;
     }
 
@@ -41,12 +41,17 @@ export class LocalPathLoader extends BaseLoader<{ type: 'LocalPathLoader' }> {
             this.debug(`File '${this.path}' has mime type '${mime}'`);
             if (mime === 'application/octet-stream') {
                 const extension = currentPath.split('.').pop().toLowerCase();
-                if (extension === 'md' || extension === 'mdx') mime = 'text/markdown';
+                if (extension === 'md' || extension === 'mdx') {
+                    mime = 'text/markdown';
+                }
+                if (extension === 'txt') {
+                    mime = 'text/plain';
+                }
                 this.debug(`File '${this.path}' mime type updated to 'text/markdown'`);
             }
 
             try {
-                const loader = await createLoaderFromMimeType(currentPath, mime);
+                const loader = await createLoaderFromMimeType(currentPath, mime, this.chunkSize, this.chunkOverlap);
                 for await (const result of await loader.getUnfilteredChunks()) {
                     yield {
                         pageContent: result.pageContent,

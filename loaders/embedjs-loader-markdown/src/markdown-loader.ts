@@ -1,5 +1,4 @@
 import { micromark } from 'micromark';
-import { mdxJsx } from 'micromark-extension-mdx-jsx';
 import { gfmHtml, gfm } from 'micromark-extension-gfm';
 import createDebugMessages from 'debug';
 import fs from 'node:fs';
@@ -35,7 +34,7 @@ export class MarkdownLoader extends BaseLoader<{ type: 'MarkdownLoader' }> {
             : await streamToBuffer(fs.createReadStream(this.filePathOrUrl));
 
         this.debug('MarkdownLoader stream created');
-        const result = micromark(buffer, { extensions: [gfm(), mdxJsx()], htmlExtensions: [gfmHtml()] });
+        const result = micromark(buffer, { extensions: [gfm()], htmlExtensions: [gfmHtml()] });
         this.debug('Markdown parsed...');
 
         const webLoader = new WebLoader({
