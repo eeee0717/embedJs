@@ -13,7 +13,7 @@ export type UnfilteredLoaderChunk<
     metadata: LoaderMetadata<Meta>;
 };
 
-export type Metadata<T> = T & { id: string; uniqueLoaderId: string; source: string; images?: [] };
+export type Metadata<T> = T & { id: string; uniqueLoaderId: string; source: string; images?: []; tags?:[] };
 export type Chunk<Meta extends Record<string, string | number | boolean> = Record<string, string | number | boolean>> =
     {
         pageContent: string;
@@ -83,11 +83,3 @@ export type QueryResponse = Extract<Message, { actor: 'AI' }> & {
         outputTokens: number | 'UNKNOWN';
     };
 };
-
-export type ImageArea =  {
-    url: string
-    areaPosition: {
-      startOffset: number
-      endOffset: number
-    }
-  }
