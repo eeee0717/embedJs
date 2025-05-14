@@ -1,9 +1,9 @@
 {
     "name": "@cherrystudio/embedjs-lmdb",
-    "version": "0.1.29",
+    "version": "0.1.30",
     "description": "Add LMDB support to embedjs",
     "dependencies": {
-        "@cherrystudio/embedjs-interfaces": "0.1.29",
+        "@cherrystudio/embedjs-interfaces": "0.1.30",
         "debug": "^4.4.0",
         "lmdb": "^3.2.0"
     },
