@@ -8,4 +8,6 @@ export interface BaseVectorDatabase {
 
     deleteKeys(uniqueLoaderId: string): Promise<boolean>;
     reset(): Promise<void>;
+
+    getAllChunks?(): Promise<Array<{ pageContent: string; metadata: Record<string, unknown> }> | undefined>;
 }
