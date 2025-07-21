@@ -86,4 +86,15 @@ export class LibSqlDb implements BaseVectorDatabase {
     async reset(): Promise<void> {
         await this.client.execute(`DELETE FROM ${this.tableName};`);
     }
+
+    async getAllChunks(): Promise<Array<{ pageContent: string; metadata: Record<string, unknown> }>> {
+        const statement = `SELECT pageContent, metadata FROM ${this.tableName}`;
+        this.debug(`Executing statement - ${statement}`);
+        const results = await this.client.execute(statement);
+
+        return results.rows.map((row) => ({
+            pageContent: row.pageContent.toString(),
+            metadata: JSON.parse(row.metadata.toString()),
+        }));
+    }
 }
